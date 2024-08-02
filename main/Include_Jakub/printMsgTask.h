@@ -5,13 +5,11 @@
 #include "FreeRTOS.h"
 #include "timers.h"
 #include "task.h"
-#include "queue.h"
 #include "printMsg.h"
 
 
-
-
-void printMsgTask(const uint8_t *message);
+void mainPrintMsg();
+void printMsgTask(void *pvParameters);
 
 
 

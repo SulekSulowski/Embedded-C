@@ -2,17 +2,24 @@
 #include "printMsgTask.h"
 
 
-void printMsgTask(const uint8_t *message)
+char *text = "H";
+
+void mainPrintMsg()
 {
-	TickType_t xLastWakeTime;
+	xTaskCreate(printMsgTask, "print task", 1024, (void*) text, 3, NULL);
+}
 
-	const TickType_t time = pdMS_TO_TICKS(1000);
 
-	xLastWakeTime = xTaskGetTickCount();
+
+void printMsgTask(void *pvParameters)
+{
+	const uint8_t* message = (const uint8_t *) pvParameters;
+
+	const TickType_t time = pdMS_TO_TICKS(100);
 
 	while(1)
 	{
 		printMsg(message);
-		vTaskDelayUntil(&xLastWakeTime, time);
+		vTaskDelay(time);
 	}
 }
